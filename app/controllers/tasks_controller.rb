@@ -27,8 +27,8 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
   
-  def updated
-    @task = task.find(params[:id])
+  def update
+    @task = Task.find(params[:id])
     
     if @task.update(task_params)
       flash[:success] = "Task は正常に更新されました"
