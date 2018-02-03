@@ -2,11 +2,12 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   
   def index
-    @tasks = Task.order(created_at: :desc).page(params[:page]).per(20)
+    if logged_in?
+      @tasks = Task.order(created_at: :desc).page(params[:page]).per(3)
+    end
   end
   
   def show
-    @task = Task.find(params[:id])
   end
   
   def new
@@ -50,6 +51,7 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+    redirect_to root_url if @task.user != current_user
   end
   
   def task_params
